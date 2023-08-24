@@ -17,7 +17,8 @@ pipeline {
                 echo 'IT Tests'
             }
         }
-    } post {
+    }
+    post {
         always {
             echo 'yeah I did it , I am awesome'
         }
