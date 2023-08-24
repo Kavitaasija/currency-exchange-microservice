@@ -1,11 +1,22 @@
 //DECLARATIVE
 pipeline {
-    agent { docker { image 'maven:3.6.3'} }
+    agent any
     stages {
         stage('Build') {
             steps {
+                echo 'Build Docker '
+            }
+            agent {
+                docker {
+                    image 'maven:3.6.3'
+                    // Run the container on the node specified at the
+                    // top-level of the Pipeline, in the same workspace,
+                    // rather than on a new node entirely:
+                    reuseNode true
+                }
+            }
+            steps {
                 sh 'mvn --version'
-                echo 'Build'
             }
         }
         stage('Test') {
@@ -29,9 +40,10 @@ pipeline {
         failure {
             echo 'failure'
         }
-        changes {
+        changed {
             echo ' add lerts in case of change'
         }
     }
 
 }
+//[always, changed, fixed, regression, aborted, success, unsuccessful, unstable, failure, notBuilt, cleanup]
