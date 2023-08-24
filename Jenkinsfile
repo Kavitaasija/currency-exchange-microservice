@@ -17,5 +17,15 @@ pipeline {
                 echo 'IT Tests'
             }
         }
+    } post {
+        always {
+            echo 'yeah I did it , I am awesome'
+        }
+        success {
+            echo 'success'
+        }
+        failure {
+            echo 'failure'
+        }
     }
 }
